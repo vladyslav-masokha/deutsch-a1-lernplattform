@@ -6,7 +6,7 @@ A modern, responsive learning platform for building practical German vocabulary 
 
 The platform turns themed A1 vocabulary lists into interactive learning experiences. Learners choose a topic before starting, so only the selected learning content is loaded.
 
-The interface is available in dark and light themes and is designed for desktop computers, tablets, and mobile phones.
+The dark interface is designed for desktop computers, tablets, and mobile phones.
 
 ## Available topics
 
@@ -66,7 +66,7 @@ The platform keeps learning progress in the browser and includes:
 ## Experience
 
 - A modern visual style with a dedicated color theme for each topic
-- Dark mode by default with an optional light theme
+- A comfortable dark interface throughout the platform
 - Randomized exercises on every attempt
 - Responsive layouts for phones, tablets, and desktops
 - Topic-based loading for faster and more focused sessions

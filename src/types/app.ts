@@ -1,5 +1,6 @@
 export type View =
   | 'home'
+  | 'rules'
   | 'learn'
   | 'wordQuiz'
   | 'sentenceQuiz'

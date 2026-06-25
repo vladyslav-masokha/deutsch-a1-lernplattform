@@ -2,13 +2,11 @@ import type { View } from '../types/app'
 
 type HeaderProps = {
   streak: number
-  theme: string
   navigate: (view: View) => void
-  toggleTheme: () => void
   changeTopic: () => void
 }
 
-export function Header({ streak, theme, navigate, toggleTheme, changeTopic }: HeaderProps) {
+export function Header({ streak, navigate, changeTopic }: HeaderProps) {
   return (
     <header className="topbar">
       <button className="brand" onClick={() => navigate('home')} aria-label="Zur Startseite">
@@ -22,9 +20,6 @@ export function Header({ streak, theme, navigate, toggleTheme, changeTopic }: He
           <strong>{streak}</strong>
           <span className="streak-label">{streak === 1 ? ' Tag' : ' Tage'}</span>
         </div>
-        <button className="icon-button" onClick={toggleTheme} aria-label="Farbschema wechseln">
-          {theme === 'dark' ? '☀️' : '🌙'}
-        </button>
         <button className="icon-button profile-button" onClick={() => navigate('profile')} aria-label="Lernplan öffnen">📋</button>
       </div>
     </header>

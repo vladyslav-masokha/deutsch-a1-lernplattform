@@ -1,13 +1,16 @@
 import { topics } from '../data/topics/registry'
 import { Footer } from './Footer'
 
-export function TopicSelector({ loadingId, onSelect }: { loadingId: string | null; onSelect: (id: string) => void }) {
+export function TopicSelector({ loadingId, onSelect, onRules }: { loadingId: string | null; onSelect: (id: string) => void; onRules: () => void }) {
   return (
     <main className="topic-selector">
       <div className="selector-glow" />
       <header className="selector-header">
         <div className="brand selector-brand"><span className="brand-mark">A1</span><span>Deutsch <b>lernen</b></span></div>
-        <span className="selector-step">THEMA WÄHLEN</span>
+        <nav className="selector-nav" aria-label="Startnavigation">
+          <button onClick={onRules}>REGELN</button>
+          <span className="selector-step">THEMA WÄHLEN</span>
+        </nav>
       </header>
       <section className="selector-content">
         <span className="mini-label">WILLKOMMEN ZURÜCK</span>

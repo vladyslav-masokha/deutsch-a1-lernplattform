@@ -7,13 +7,13 @@ import { TopicProvider } from './contexts/TopicContext'
 import { loadTopic } from './data/topics/registry'
 import { useProgress } from './hooks/useProgress'
 import { useStudyTime } from './hooks/useStudyTime'
-import { useTheme } from './hooks/useTheme'
 import { DialoguesPage } from './pages/DialoguesPage'
 import { GrammarPage } from './pages/GrammarPage'
 import { HomePage } from './pages/HomePage'
 import { LearnPage } from './pages/LearnPage'
 import { ListeningQuizPage } from './pages/ListeningQuizPage'
 import { ProfilePage } from './pages/ProfilePage'
+import { RulesPage } from './pages/RulesPage'
 import { SentenceQuizPage } from './pages/SentenceQuizPage'
 import { SentenceBuilderPage } from './pages/SentenceBuilderPage'
 import { WordQuizPage } from './pages/WordQuizPage'
@@ -24,7 +24,6 @@ function App() {
   const [view, setView] = useState<View>('home')
   const [topic, setTopic] = useState<TopicData | null>(null)
   const [loadingTopic, setLoadingTopic] = useState<string | null>(null)
-  const { theme, toggleTheme } = useTheme()
   const studySeconds = useStudyTime()
   const { learned, streak, dailyTasks, mistakes, recordSuccess, recordMistake, resolveMistake, recordTask, clearMistakes } = useProgress()
   const goHome = () => setView('home')
@@ -38,12 +37,29 @@ function App() {
     }
   }
 
-  if (!topic) return <TopicSelector loadingId={loadingTopic} onSelect={chooseTopic} />
+  if (!topic && view === 'rules') {
+    return (
+      <div className="topic-selector rules-shell">
+        <div className="selector-glow" />
+        <header className="selector-header">
+          <div className="brand selector-brand"><span className="brand-mark">A1</span><span>Deutsch <b>lernen</b></span></div>
+          <nav className="selector-nav" aria-label="Startnavigation">
+            <button onClick={() => setView('home')}>THEMEN</button>
+            <span className="selector-step active">REGELN</span>
+          </nav>
+        </header>
+        <RulesPage onBack={() => setView('home')} />
+        <Footer />
+      </div>
+    )
+  }
+
+  if (!topic) return <TopicSelector loadingId={loadingTopic} onSelect={chooseTopic} onRules={() => setView('rules')} />
 
   return (
     <TopicProvider topic={topic}>
       <div className="app-shell">
-        <Header streak={streak} theme={theme} navigate={setView} toggleTheme={toggleTheme} changeTopic={() => setTopic(null)} />
+        <Header streak={streak} navigate={setView} changeTopic={() => setTopic(null)} />
         <main>
           {view === 'home' && <HomePage learned={learned.filter((item) => topic.words.some((word) => word.de === item)).length} streak={streak} dailyTasks={dailyTasks} mistakes={mistakes} studySeconds={studySeconds} navigate={setView} />}
           {view === 'learn' && <LearnPage onBack={goHome} onLearn={recordSuccess} learned={learned} />}
